@@ -190,7 +190,7 @@
     transition:width .2s linear;
   }
 
-  .session-body{ flex:1; display:flex; flex-direction:column; align-items:center; text-align:center; justify-content:center; gap:14px; }
+  .session-body{ flex:1; display:flex; flex-direction:column; align-items:center; text-align:center; justify-content:flex-start; gap:14px; overflow-y:auto; padding-top:4vh; min-height:0; }
   .session-eyebrow{ color:var(--gold-deep); letter-spacing:.14em; text-transform:uppercase; font-size:12px; font-weight:700; }
   .session-title{ font-family:var(--serif); font-size:36px; color:var(--text); }
   .session-subtitle{ color:var(--text-dim); font-size:15px; max-width:320px; }
@@ -217,7 +217,7 @@
     padding:12px; font-family:var(--serif); font-size:16.5px; color:var(--text);
   }
   .affirm-scroll{
-    margin-top:8px; max-height:50vh; overflow-y:auto; width:100%; text-align:left;
+    margin-top:8px; max-height:42vh; overflow-y:auto; width:100%; text-align:left;
     display:flex; flex-direction:column; gap:12px; padding-right:4px;
   }
   .affirm-line{
@@ -226,7 +226,7 @@
   }
   .affirm-line strong{ color:var(--gold-deep); font-weight:600; font-style:normal; }
 
-  .session-controls{ display:flex; gap:12px; margin-top:22px; }
+  .session-controls{ display:flex; gap:12px; margin-top:22px; flex-shrink:0; }
   .session-controls button{ flex:1; padding:15px; border-radius:var(--radius-md); font-weight:700; font-family:var(--sans); font-size:15px; cursor:pointer; }
   .btn-pause{ background:var(--bg-card); border:1px solid var(--border); color:var(--text); }
   .btn-next{ background:var(--gold); border:none; color:var(--on-gold); }
