@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#2B2420">
 <title>Miracle Morning · Andrew</title>
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='21' fill='%23EFA736'/%3E%3Cg stroke='%23EFA736' stroke-width='7' stroke-linecap='round'%3E%3Cline x1='50' y1='5' x2='50' y2='18'/%3E%3Cline x1='50' y1='82' x2='50' y2='95'/%3E%3Cline x1='5' y1='50' x2='18' y2='50'/%3E%3Cline x1='82' y1='50' x2='95' y2='50'/%3E%3Cline x1='17' y1='17' x2='26' y2='26'/%3E%3Cline x1='74' y1='74' x2='83' y2='83'/%3E%3Cline x1='83' y1='17' x2='74' y2='26'/%3E%3Cline x1='26' y1='74' x2='17' y2='83'/%3E%3C/g%3E%3C/svg%3E">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='16' fill='%23EFA736'/%3E%3Cg stroke='%23EFA736' stroke-width='6' stroke-linecap='round'%3E%3Cline x1='50' y1='16' x2='50' y2='28'/%3E%3Cline x1='50' y1='72' x2='50' y2='84'/%3E%3Cline x1='16' y1='50' x2='28' y2='50'/%3E%3Cline x1='72' y1='50' x2='84' y2='50'/%3E%3Cline x1='26' y1='26' x2='34.4' y2='34.4'/%3E%3Cline x1='65.6' y1='65.6' x2='74' y2='74'/%3E%3Cline x1='74' y1='26' x2='65.6' y2='34.4'/%3E%3Cline x1='34.4' y1='65.6' x2='26' y2='74'/%3E%3C/g%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -226,10 +226,11 @@
   }
   .affirm-line strong{ color:var(--gold-deep); font-weight:600; font-style:normal; }
 
-  .session-controls{ display:flex; gap:12px; margin-top:22px; flex-shrink:0; }
-  .session-controls button{ flex:1; padding:15px; border-radius:var(--radius-md); font-weight:700; font-family:var(--sans); font-size:15px; cursor:pointer; }
-  .btn-pause{ background:var(--bg-card); border:1px solid var(--border); color:var(--text); }
-  .btn-next{ background:var(--gold); border:none; color:var(--on-gold); }
+  .session-controls{ display:flex; align-items:center; gap:10px; margin-top:22px; flex-shrink:0; }
+  .session-controls .icon-btn{ width:46px; height:46px; flex-shrink:0; }
+  .session-controls .icon-btn svg{ width:18px; height:18px; }
+  .session-controls .icon-btn:disabled{ opacity:.35; cursor:default; }
+  .btn-next{ flex:1; padding:15px; border-radius:var(--radius-md); font-weight:700; font-family:var(--sans); font-size:15px; cursor:pointer; background:var(--gold); border:none; color:var(--on-gold); }
 
   .complete-wrap{ flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; gap:16px; }
   .complete-wrap h2{ font-size:30px; font-family:var(--serif); }
@@ -414,7 +415,7 @@
       <button class="icon-btn" id="btn-end-session" title="End session">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
       </button>
-      <div class="session-progress-text" id="session-progress-text">Step 1 of 6</div>
+      <div class="session-progress-text"><span id="step-counter-text">Step 1 of 6</span> <span id="session-total-time">· 00:00</span></div>
       <button class="icon-btn" id="btn-mute-session" title="Mute">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M15.5 8.5a5 5 0 010 7"/></svg>
       </button>
@@ -429,7 +430,16 @@
     </div>
 
     <div class="session-controls" id="session-controls">
-      <button class="btn-pause" id="btn-pause-resume">Pause</button>
+      <button class="icon-btn" id="btn-back-step" title="Back">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+      </button>
+      <button class="icon-btn" id="btn-restart-step" title="Restart this step">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 4v6h6"/><path d="M3.51 15a9 9 0 102.13-9.36L1 10"/></svg>
+      </button>
+      <button class="icon-btn" id="btn-pause-resume" title="Pause">
+        <svg id="icon-pause" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg>
+        <svg id="icon-play" viewBox="0 0 24 24" fill="currentColor" style="display:none;"><path d="M7 5l12 7-12 7V5z"/></svg>
+      </button>
       <button class="btn-next" id="btn-skip-step">Next</button>
     </div>
   </section>
@@ -854,10 +864,15 @@
   document.getElementById("btn-rescan-goals").addEventListener("click", renderMore);
 
   /* ---------------- Session engine ---------------- */
-  var session = null; // { steps, routine, durKey, index, totalDuration, elapsedBefore, endTs, remainingMs, paused, tickHandle }
+  var session = null; // { steps, routine, durKey, index, totalDuration, elapsedBefore, endTs, remainingMs, paused, tickHandle, overallStartMs, overallTickHandle }
 
   function totalDurationOf(steps){
     return steps.reduce(function(a,s){ return a + s.duration; }, 0);
+  }
+  function durationBefore(steps, idx){
+    var sum = 0;
+    for(var k=0;k<idx;k++){ sum += steps[k].duration; }
+    return sum;
   }
 
   function startSession(routine, durKey){
@@ -872,14 +887,34 @@
       remainingMs: 0,
       paused: false,
       tickHandle: null,
-      endTs: 0
+      endTs: 0,
+      overallStartMs: Date.now(),
+      overallTickHandle: null,
+      stepState: steps.map(function(){ return null; })
     };
     document.getElementById("view-session").classList.add("active");
+    session.overallTickHandle = setInterval(updateOverallTime, 1000);
+    updateOverallTime();
     showStep(0);
+  }
+
+  function snapshotCurrentStep(){
+    if(!session) return;
+    var remaining = session.paused ? session.remainingMs : Math.max(0, session.endTs - Date.now());
+    session.stepState[session.index] = remaining;
+  }
+
+  function updateOverallTime(){
+    if(!session) return;
+    var elapsedSec = Math.max(0, Math.floor((Date.now() - session.overallStartMs)/1000));
+    var m = Math.floor(elapsedSec/60), s = elapsedSec%60;
+    var el = document.getElementById("session-total-time");
+    if(el) el.textContent = "\u00b7 " + (m<10?"0":"")+m + ":" + (s<10?"0":"")+s;
   }
 
   function endSessionEarly(){
     if(session && session.tickHandle) clearInterval(session.tickHandle);
+    if(session && session.overallTickHandle) clearInterval(session.overallTickHandle);
     session = null;
     document.getElementById("view-session").classList.remove("active");
   }
@@ -890,12 +925,20 @@
     this.style.color = getSoundOn() ? "" : "var(--gold-deep)";
   });
 
+  function goToStep(newIndex){
+    if(!session) return;
+    if(newIndex < 0) newIndex = 0;
+    session.elapsedBefore = durationBefore(session.steps, newIndex);
+    showStep(newIndex);
+  }
+
   function showStep(i){
     if(!session) return;
     if(i >= session.steps.length){ completeSession(); return; }
     session.index = i;
     var step = session.steps[i];
-    document.getElementById("session-progress-text").textContent = "Step " + (i+1) + " of " + session.steps.length;
+    document.getElementById("step-counter-text").textContent = "Step " + (i+1) + " of " + session.steps.length;
+    document.getElementById("btn-back-step").disabled = (i === 0);
 
     var body = document.getElementById("session-body");
     var html =
@@ -939,15 +982,30 @@
       });
     }
 
-    document.getElementById("btn-pause-resume").textContent = "Pause";
-    session.paused = false;
-
-    var durMs = step.duration * 1000;
-    session.remainingMs = durMs;
-    session.endTs = Date.now() + durMs;
     if(session.tickHandle) clearInterval(session.tickHandle);
-    session.tickHandle = setInterval(tick, 200);
-    tick();
+
+    var saved = session.stepState[i];
+    var durMs = step.duration * 1000;
+
+    if(saved != null && saved > 0){
+      session.remainingMs = saved;
+      session.paused = true;
+      document.getElementById("icon-pause").style.display = "none";
+      document.getElementById("icon-play").style.display = "";
+      document.getElementById("btn-pause-resume").title = "Resume";
+      updateClock(session.remainingMs);
+      var elapsedInStep = step.duration - session.remainingMs/1000;
+      updateProgress((session.elapsedBefore + elapsedInStep) / session.totalDuration);
+    } else {
+      document.getElementById("icon-pause").style.display = "";
+      document.getElementById("icon-play").style.display = "none";
+      document.getElementById("btn-pause-resume").title = "Pause";
+      session.paused = false;
+      session.remainingMs = durMs;
+      session.endTs = Date.now() + durMs;
+      session.tickHandle = setInterval(tick, 200);
+      tick();
+    }
   }
 
   function tick(){
@@ -958,10 +1016,10 @@
       updateClock(0);
       updateProgress(1);
       playChime("main");
+      session.stepState[session.index] = null;
       setTimeout(function(){
         if(!session) return;
-        session.elapsedBefore += session.steps[session.index].duration;
-        showStep(session.index + 1);
+        goToStep(session.index + 1);
       }, 900);
       return;
     }
@@ -990,26 +1048,46 @@
     if(session.paused){
       session.endTs = Date.now() + session.remainingMs;
       session.paused = false;
-      this.textContent = "Pause";
+      document.getElementById("icon-pause").style.display = "";
+      document.getElementById("icon-play").style.display = "none";
+      this.title = "Pause";
       session.tickHandle = setInterval(tick, 200);
     } else {
       session.remainingMs = Math.max(0, session.endTs - Date.now());
       session.paused = true;
-      this.textContent = "Resume";
+      document.getElementById("icon-pause").style.display = "none";
+      document.getElementById("icon-play").style.display = "";
+      this.title = "Resume";
       clearInterval(session.tickHandle);
     }
+  });
+
+  document.getElementById("btn-back-step").addEventListener("click", function(){
+    if(!session || session.index === 0) return;
+    clearInterval(session.tickHandle);
+    playChime("soft");
+    snapshotCurrentStep();
+    goToStep(session.index - 1);
+  });
+
+  document.getElementById("btn-restart-step").addEventListener("click", function(){
+    if(!session) return;
+    clearInterval(session.tickHandle);
+    session.stepState[session.index] = null;
+    showStep(session.index);
   });
 
   document.getElementById("btn-skip-step").addEventListener("click", function(){
     if(!session) return;
     clearInterval(session.tickHandle);
     playChime("soft");
-    session.elapsedBefore += session.steps[session.index].duration;
-    showStep(session.index + 1);
+    snapshotCurrentStep();
+    goToStep(session.index + 1);
   });
 
   function completeSession(){
     document.getElementById("session-controls").style.display = "none";
+    if(session && session.overallTickHandle) clearInterval(session.overallTickHandle);
     var body = document.getElementById("session-body");
     var closing = "Well done, " + getName() + ".";
     var line = "Make today count.";
@@ -1020,7 +1098,7 @@
         '<p>'+line+'</p>'+
         '<button class="btn-primary" id="btn-finish" style="width:220px;">Done</button>'+
       '</div>';
-    document.getElementById("session-progress-text").textContent = "Complete";
+    document.getElementById("step-counter-text").textContent = "Complete";
     updateProgress(1);
     document.getElementById("btn-finish").addEventListener("click", function(){
       document.getElementById("session-controls").style.display = "";
